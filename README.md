@@ -1,10 +1,14 @@
-# Rainbow Chatter
+# Rainbow Chatter 
 
-Upon sending a message, your user color will automatically be changed. In less active chats this gives the impression at a glace of more unique chatters.
+Make all your Twitch chats more colorful by changing your user color after every message you send.
 
-**This violates twitch terms** - Twitch at the moment does not allow automated access by third-parties to their GraphQL API which is necessary to make user color changes. This extension injects itself into the Twitch chat/stream pages in order to pretend to be a legitimate twitch user and make this change. It may seem harmless, but Twitch can decide to ban those using it. 
+## This is a violation of Twitch's terms, use at your own risk.
 
-In theory, I don't do anything here that wouldn't work on the newest Manifest V3 version but I couldn't get any content-scripts to actually be loaded (much less try to do the injection process used here) when using Manifest V3 so this is a Manifest V2 extension, which is deprecated on Chrome, but still supported on Firefox. Nothing here really relies on V2 so it could probably be ported to Chrome by someone who knows whats going going but that isn't me.
+### It may seem harmless, and in my opinion it is. However Twitch absolutely can ban your account for using their GraphQL API without authorization as this extension does.
+
+---
+
+This is made for Firefox. As far as I understand it doesn't do anything that isn't allowed on Chrome however I couldn't get any content script loading at all under Manifest V3 despite it still being supported, so I just gave up trying. In theory with the right permissions this should work under V3/Chrome also.
 
 ## Usage
 
