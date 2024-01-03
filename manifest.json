@@ -1,0 +1,12 @@
+{
+  "name": "Rainbow Chatter",
+  "version": "1.0",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": ["https://www.twitch.tv/*"],
+      "js": ["content/content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
