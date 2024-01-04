@@ -40,19 +40,19 @@ window.fetch = function() {
             _saved_gql = arguments[1];
             break;
         case '/integrity':
-            // We also need to integrity token that is in the response from here
-            ret = _saved_funcs['fetch'].apply(this, arguments);
-            ret.then((resp)=>{
-                if (resp.status == 200) {
-                    resp.json().then((data)=>{
-                        debug("Integrity Response", data)
-                        _integrity = data;
-                    })
-                }
+            return new Promise((resolve, reject) => {
+                ret = _saved_funcs['fetch'].apply(this, arguments);
+                ret.then((resp)=>{
+                    resolve(resp.clone())
+                    if (resp.status == 200) {
+                        resp.json().then((data)=>{
+                            debug("Integrity Response", data)
+                            _integrity = data;
+                        })
+                    }
+                }).catch((err)=>{reject(err)})
             })
-            return ret;
     }
-
     return _saved_funcs['fetch'].apply(this, arguments);
 }
 
@@ -114,11 +114,10 @@ function changeColor(color) {
         body: payload
     }
 
-    debug()
-
     debug("Color Change Request", body)
-    let resp = _saved_funcs['fetch'](endpoint, body)
+    let resp = _saved_funcs['fetch'].apply(this, [endpoint, body]);
     debug("Color Change Response", resp)
+
     return true
 }
 
@@ -129,7 +128,6 @@ function debug() {
 }
 
 function error() {
-    arguments.insert(0, __CONSOLE_PREFIX)    
     console.error.apply(this, [__CONSOLE_PREFIX, ...arguments])
 }
 
