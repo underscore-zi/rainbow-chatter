@@ -24,7 +24,7 @@ let _integrity = null;
 let _last_color = null;
 
 // Debug mode, if true we will log a bunch of stuff to the console
-let __debug = false;
+let __debug = true;
 
 // fetch(...) wrapper, intercepts /gql and /integrity requests for the two vars saved above
 window.fetch = function() {
@@ -38,6 +38,11 @@ window.fetch = function() {
         case '/gql':
             // Just saving the /gql request headers so we can reuse them for our own requests
             _saved_gql = arguments[1];
+            if (arguments[1].method == "POST" && arguments[1]["body"] !== undefined) {
+                if (arguments[1]["body"].indexOf("sendChatMessage")) {
+                    randomColor()
+                }
+            }
             break;
         case '/integrity':
             return new Promise((resolve, reject) => {
